@@ -1,0 +1,17 @@
+{
+    "css.lint.unknownAtRules": "ignore",
+    "cSpell.words": [
+        "color",
+        "cuid",
+        "datasource",
+        "geist",
+        "Liban",
+        "neondatabase",
+        "postgresql",
+        "prisma",
+        "tailwindcss",
+        "turbopack",
+        "uploadthing",
+        "vercel"
+    ]
+}
