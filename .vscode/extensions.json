@@ -1,0 +1,18 @@
+{
+	"recommendations": [
+		"austenc.tailwind-docs",
+		"biomejs.biome",
+		"bradlc.vscode-tailwindcss",
+		"databricks.neon-local-connect",
+		"formulahendry.auto-rename-tag",
+		"ms-ossdata.vscode-pgsql",
+		"ms-vscode.vscode-typescript-next",
+		"prisma.prisma",
+		"streetsidesoftware.code-spell-checker",
+		"streetsidesoftware.code-spell-checker-french",
+		"usernamehw.errorlens",
+		"vscode-icons-team.vscode-icons",
+		"yoavbls.pretty-ts-errors"
+	],
+	"unwantedRecommendations": []
+}
