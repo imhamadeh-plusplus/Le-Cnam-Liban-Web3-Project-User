@@ -20,7 +20,7 @@ export function SignOutButton() {
       onClick={handleSignOut}
       className="border px-3 py-1.5 rounded text-sm"
     >
-      Sign Out
+      Sign-Out
     </button>
   );
 }
