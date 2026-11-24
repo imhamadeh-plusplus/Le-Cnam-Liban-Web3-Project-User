@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { SignOutButton } from "@/components/sign-out-btn";
+import { Sidebar } from "@/components/Sidebar";
 
 async function AuthStatus() {
   const session = await auth.api.getSession({
@@ -31,8 +32,10 @@ async function AuthStatus() {
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex min-h-screen w-full bg-zinc-50 font-sans dark:bg-black">
+      <Sidebar />
+
+      <main className="flex flex-1 flex-col py-8 px-8 bg-white dark:bg-black">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Video Platform</h1>
           <Suspense fallback={<span className="text-sm">Loading...</span>}>
