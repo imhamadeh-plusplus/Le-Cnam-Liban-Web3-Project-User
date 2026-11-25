@@ -1,5 +1,9 @@
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
 import Link from "next/link";
-import { DotsThreeVerticalIcon, PlayIcon } from "@phosphor-icons/react/dist/ssr";
+import {
+  DotsThreeVerticalIcon,
+  PlayIcon,
+} from "@phosphor-icons/react/dist/ssr";
 
 export interface DummyVideo {
   id: string;

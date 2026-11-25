@@ -1,8 +1,8 @@
-// Keep line 2, Do NOT delete it okay??
-/** biome-ignore-all assist/source/organizeImports: Keep imports grouped by package. */ 
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 import {
   ClockCounterClockwiseIcon,
   CompassIcon,
@@ -13,16 +13,11 @@ import {
   UsersThreeIcon,
   VideoCameraIcon,
 } from "@phosphor-icons/react";
+
 const mainNav = [
   { label: "Home", href: "/", icon: HouseIcon },
   { label: "Explore", href: "/explore", icon: CompassIcon },
   { label: "Subscriptions", href: "/subscriptions", icon: UsersThreeIcon },
-];
-const libraryNav = [
-  { label: "Your Channel", href: "/channel", icon: UserCircleIcon },
-  { label: "Your Videos", href: "/studio", icon: VideoCameraIcon },
-  { label: "Liked Videos", href: "/liked", icon: ThumbsUpIcon },
-  { label: "History", href: "/history", icon: ClockCounterClockwiseIcon },
 ];
 
 const dummySubscriptions = [
@@ -31,8 +26,23 @@ const dummySubscriptions = [
   { id: "3", name: "dummy3", hasNew: true },
   { id: "4", name: "dummy4", hasNew: false },
 ];
-export function Sidebar() {
+
+export function Sidebar({ username }: { username?: string | null }) {
   const pathname = usePathname();
+  const { data: session } = authClient.useSession();
+
+  const sessionUsername = (
+    session?.user as { username?: string | null } | undefined
+  )?.username;
+  const activeUsername = sessionUsername || username;
+  const channelHref = activeUsername ? `/@${activeUsername}` : "/channel";
+
+  const libraryNav = [
+    { label: "Your Channel", href: channelHref, icon: UserCircleIcon },
+    { label: "Your Videos", href: "/studio", icon: VideoCameraIcon },
+    { label: "Liked Videos", href: "/liked", icon: ThumbsUpIcon },
+    { label: "History", href: "/history", icon: ClockCounterClockwiseIcon },
+  ];
 
   return (
     <aside className="w-64 shrink-0 border-r border-zinc-800 bg-black text-zinc-100 h-screen sticky top-0 flex flex-col justify-between px-3 py-4 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-zinc-950 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-zinc-700 hover:[&::-webkit-scrollbar-thumb]:bg-zinc-600">
@@ -79,7 +89,7 @@ export function Sidebar() {
             {dummySubscriptions.map((sub) => (
               <Link
                 key={sub.id}
-                href={`/channel/${sub.name}`}
+                href={`/@${sub.name}`}
                 className="flex items-center justify-between px-4 py-2 rounded-full text-sm text-zinc-300 hover:bg-zinc-900/70 transition-colors"
               >
                 <div className="flex items-center gap-3 min-w-0">

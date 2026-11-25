@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/style/useImportType: <ignoring extension> */
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
 import { Sidebar } from "@/components/Sidebar";
 import { Navbar } from "@/components/Navbar";
 import { VideoCard, DummyVideo } from "@/components/Video-card";
@@ -69,7 +71,11 @@ export default function Home() {
 
         <div className="border-b border-zinc-800 bg-black px-6 py-3">
           <span className="inline-block rounded-full border border-zinc-800 bg-zinc-900 px-3.5 py-1 text-xs font-medium text-zinc-400">
-            suggestions later
+            suggestions later{" "}
+            <span className="text-red-400">
+              (Every video is a dummy video, not real content, was trying the
+              design, they don't even work yet, will add real content later)
+            </span>
           </span>
         </div>
 

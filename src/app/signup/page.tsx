@@ -1,3 +1,7 @@
+/** biome-ignore-all lint/a11y/noLabelWithoutControl: <ignoring extension> */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <ignoring extension> */
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
+/** biome-ignore-all lint/style/useImportType: <ignoring extension> */
 "use client";
 
 import { useState, FormEvent } from "react";
@@ -7,7 +11,7 @@ import { authClient } from "@/lib/auth-client";
 
 export default function SignUpPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -16,10 +20,23 @@ export default function SignUpPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+
+    const cleanUsername = username
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_]/g, "");
+    if (cleanUsername.length < 3) {
+      setError(
+        "Username must be at least 3 characters (letters, numbers, or _)",
+      );
+      return;
+    }
+
     setLoading(true);
 
-    const { error } = await authClient.signUp.email({
-      name,
+    const { error } = await (authClient.signUp.email as any)({
+      name: cleanUsername,
+      username: cleanUsername,
       email,
       password,
     });
@@ -43,12 +60,13 @@ export default function SignUpPage() {
 
       <form onSubmit={handleSubmit} className="space-y-3">
         <div>
-          <label className="block text-sm mb-1">Name</label>
+          <label className="block text-sm mb-1">Username</label>
           <input
             type="text"
             required
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g. @unique"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full border px-3 py-2 rounded"
           />
         </div>

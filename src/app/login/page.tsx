@@ -1,3 +1,6 @@
+/** biome-ignore-all lint/a11y/noLabelWithoutControl: <ignoring extension> */
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
+/** biome-ignore-all lint/style/useImportType: <ignoring extension> */
 "use client";
 
 import { useState, FormEvent } from "react";

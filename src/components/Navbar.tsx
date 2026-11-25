@@ -1,9 +1,9 @@
-// Keep line 2, Do NOT delete it okay??
-/** biome-ignore-all assist/source/organizeImports: Keep imports grouped by package. */ 
+/** biome-ignore-all assist/source/organizeImports: <ignoring extension> */
 import { Suspense } from "react";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { SignOutButton } from "@/components/Sign-out-btn";
 import { SearchBar } from "@/components/Search-bar";
 
@@ -13,10 +13,17 @@ async function NavbarAuth() {
   });
 
   if (session) {
+    const dbUser = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { username: true },
+    });
+
+    const channelHref = dbUser?.username ? `/@${dbUser.username}` : "/channel";
+
     return (
       <div className="flex items-center gap-3">
         <Link
-          href="/channel"
+          href={channelHref}
           className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:bg-zinc-800 transition-colors"
         >
           <span className="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-xs font-bold text-black">
@@ -53,7 +60,11 @@ export function Navbar() {
       <div className="flex-1 max-w-xl">
         <SearchBar />
       </div>
-      <Suspense fallback={<div className="h-8 w-24 animate-pulse rounded-full bg-zinc-900" />}>
+      <Suspense
+        fallback={
+          <div className="h-8 w-24 animate-pulse rounded-full bg-zinc-900" />
+        }
+      >
         <NavbarAuth />
       </Suspense>
     </header>
